@@ -1,0 +1,11 @@
+{
+  "sql":  {
+    "host": "localhost",
+    "port": "3306",
+    "user": "root",
+    "password": "",
+    "database": "trade"
+  },
+  "port": 80,
+  "secret": ["session-secret-123456"]
+}
