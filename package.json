@@ -10,12 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "koa": "*",
-    "koa-router": "*",
     "koa-ejs": "*",
     "koa-serve": "*",
+    "koa-router": "*",
     "koa-bodyparser": "*",
     "koa-mysql-session": "*",
     "koa-generic-session": "*",
+    "co-mysql": "*",
     "config": "*"
   },
   "devDependencies": {
