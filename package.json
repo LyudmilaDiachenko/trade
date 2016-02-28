@@ -1,0 +1,32 @@
+{
+  "name": "trade",
+  "version": "0.0.1",
+  "description": "test app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LyudmilaDiachenko",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "*",
+    "koa-router": "*",
+    "koa-ejs": "*",
+    "koa-serve": "*",
+    "koa-bodyparser": "*",
+    "koa-mysql-session": "*",
+    "koa-generic-session": "*",
+    "config": "*"
+  },
+  "devDependencies": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LyudmilaDiachenko/trade.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LyudmilaDiachenko/trade/issues"
+  },
+  "homepage": "https://github.com/LyudmilaDiachenko/trade#readme"
+}
