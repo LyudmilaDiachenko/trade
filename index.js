@@ -37,6 +37,25 @@ app.use(serve('static'));
 //роутинг
 router
     .get('/', trade.main)
+
+    .get('/login/', trade.login)
+    .post('/login/', trade.login)
+
+    .get('/logout/', trade.logout)
+
+    .get('/profile/', trade.profile)
+    .post('/profile/', trade.profile)
+
+    .get('/user/:id/', trade.user)
+
+    .get('/publish/', trade.publish)
+    .post('/publish/', trade.publish)
+    .get('/publish/:id/', trade.publish)
+
+    .get('/search/', trade.search)
+
+    .get('/adv/:id/', trade.adv)
+
 ;
 app.use(router.routes());
 

@@ -1,0 +1,32 @@
+<h2 class="text-center">Подати оголошення</h2>
+<form method="POST" action="/publish/">
+    <input type="hidden" name="adv_id" value="<%-item.adv_id%>"/>
+    <div class="form-group">
+        <label for="name">Тема оголошення</label>
+        <input type="text" name="name" id="name" value="<%-item.name%>" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="text">Текст</label>
+        <textarea name="text" id="text" class="form-control"><%-item.text%></textarea>
+    </div>
+    <div class="form-group">
+        <label for="category_id">Катерогія</label>
+        <select id="category_id" name="category_id" class="form-control">
+            <option value="0">Без категорії</option>
+            <%for(var k in list){%>
+                <option value="<%-list[k].category_id%>" <%if(list[k].category_id==item.category_id){%>selected="selected"<%}%>>
+                    <%-list[k].category_name%>
+                </option>
+            <%}%>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="price">Ціна</label>
+        <div class="input-group">
+            <input type="number" name="price" id="price" min="0" step="10" value="<%-item.price%>" class="form-control" />
+            <div class="input-group-addon">грн.</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Зберегти</button>
+    <button type="reset" class="btn btn-danger">Відмінити</button>
+</form>

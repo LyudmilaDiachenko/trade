@@ -1,0 +1,72 @@
+<h2 class="text-center">Пошук оголошення</h2>
+<form role="form" class="form-horizontal" method="GET" action="/search/">
+    <div class="form-group">
+        <div class="col-xs-2">
+            <select name="category_id" title="Категорія" class="form-control">
+                <option value="0">Всі категорії</option>
+                <%for(var k in list){%>
+                    <option value="<%-list[k].category_id%>"
+                    <%if(list[k].category_id==query.category_id){%>
+                    selected="selected"
+                    <%}%>
+                    >
+                        <%-list[k].category_name%>
+                    </option>
+                <%}%>
+            </select>
+        </div>
+        <div class="col-xs-4">
+            <input type="text" placeholder="Назва/опис" class="form-control" value="<%-query.text%>" name="text" />
+        </div>
+        <div class="col-xs-2">
+            <input type="number" placeholder="Ціна від" class="form-control" value="<%-query.price_from%>" min="0" step="10" name="price_from" />
+        </div>
+        <div class="col-xs-2">
+            <input type="number" placeholder="Ціна до" class="form-control" value="<%-query.price_to%>" min="0" step="10" name="price_to" />
+        </div>
+        <div class="col-xs-2">
+            <button type="submit" class="btn btn-success">Пошук</button>
+        </div>
+    </div>
+</form>
+
+<%if (items.length==0){%>
+    <div class="text-center">
+        <hr>
+        <h3 class="text-info">
+            Результатів не знайдено
+        </h3>
+    </div>
+<%} else {%>
+    <%for(var k in items){%>
+        <div class="panel-group">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <span class="text-danger"><%-items[k].category_name%>:</span>
+                    <a class="text-success" href="/adv/<%-items[k].adv_id%>/">
+                        <%-items[k].name%>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <span class="text-danger">Текст:</span>
+                    <a class="text-success" href="/adv/<%-items[k].adv_id%>/">
+                        <%-items[k].text.substr(0, 40)%>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <span class="text-danger">Ціна:</span>
+                    <a class="text-success" href="/adv/<%-items[k].adv_id%>/">
+                        <%-items[k].price%>
+                    </a>
+                </div>
+                <div  class="panel-footer">
+                    <span class="text-danger">Дата:</span>
+                    <%-items[k].date.toLocaleString()%>
+                </div>
+            </div>
+        </div>
+    <%}%>
+<%}%>
+
+
+

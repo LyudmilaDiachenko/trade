@@ -16,6 +16,7 @@
     "koa-bodyparser": "*",
     "koa-mysql-session": "*",
     "koa-generic-session": "*",
+    "crypto-js": "*",
     "co-mysql": "*",
     "config": "*"
   },

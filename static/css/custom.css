@@ -1,0 +1,11 @@
+.bs-docs-container{
+    min-height: 100%;
+    padding-bottom: 45px;
+}
+.panel-footer.footer{
+    margin-top: -45px;
+    height: 45px;
+}
+textarea.form-control {
+    max-width: 100%;
+}

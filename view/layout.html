@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trade.ua</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/static/css/custom.css"/>
+</head>
+<body>
+<div class="container bs-docs-container">
+    <div class="hero-unit">
+        <h1 class="text-center">Дошка оголошень!</h1>
+        <div class="text-right">
+            <p class="text-success">
+                <% if (session.email) {%>
+                <%-session.email%>  | <a class="text-danger" href="/logout/">Вихід</a>
+                <%}%></p>
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <ul class="nav nav-tabs">
+                <li <%if(page=='main'){%>class="active"<%}%>><a class="text-warning" href="/">Головна</a></li>
+                <li <%if(page=='profile'){%>class="active"<%}%>><a class="text-warning" href="/profile/">Мій профіль</a></li>
+                <li <%if(page=='publish'){%>class="active"<%}%>><a class="text-warning" href="/publish/">Подати оголошення</a></li>
+                <li <%if(page=='search'){%>class="active"<%}%>><a class="text-warning" href="/search/">Пошук оголошення</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="body">
+        <%- body %>
+    </div>
+</div>
+<div class="panel-footer footer">
+    <p class="muted pull-left">Trade.ukr.net © 2016</p>
+    <p class="muted pull-right"></p>
+</div>
+</body>
+</html>

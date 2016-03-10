@@ -1,0 +1,38 @@
+<h2 class="text-center"><%-item.adv_name%></h2>
+<div class="panel-group">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a href="/user/<%-item.user_id%>/"><%-item.name%></a>
+        </div>
+        <div class="panel-body">
+            <h3 class="text-info">
+                <%-item.text%>
+            </h3>
+        </div>
+        <div class="panel-body">
+           <strong>Ціна: </strong>
+            <%-item.price%>
+        </div>
+        <div class="panel-body">
+            <strong>Категорія: </strong>
+            <%-item.category_name%>
+        </div>
+        <div class="panel-body">
+            <strong>Дата оголошення: </strong>
+            <%-item.date.toISOString().substr(0,10)%>
+        </div>
+  <div class="panel-footer">
+      <address>
+          <strong>Адреса:</strong><br>
+          <%-item.addr%><br>
+          <%-item.city%><br>
+          <abbr title="Phone">P:</abbr> <%-item.tel%>
+      </address>
+      <address>
+          <strong>Електронна пошта</strong><br>
+          <a href="mailto:<%-item.email%>"><%-item.email%></a>
+      </address>
+      <a href="/publish/<%-item.adv_id%>/"><button type="submit" class="btn btn-danger">Редагувати оголошення</button></a>
+  </div>
+    </div>
+</div>

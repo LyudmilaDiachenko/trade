@@ -1,0 +1,94 @@
+<h2 class="text-center">Редагування профілю</h2>
+<form role="form" method="POST" action="/profile/">
+    <%if(error==1){%>
+    <div class="form-group">
+        <h3 class="text-center">
+            <strong class="text-danger">
+                Невірно введено старий пароль!
+            </strong>
+        </h3>
+    </div>
+    <%}%>
+    <%if(error==2){%>
+    <div class="form-group">
+        <h3 class="text-center">
+            <strong class="text-danger">
+                Введенні паролі не співпадають!
+            </strong>
+        </h3>
+    </div>
+    <%}%>
+    <%if(success){%>
+    <div class="form-group">
+        <h3 class="text-center">
+            <strong class="text-success">
+                Дані профілю успішно змінено!
+            </strong>
+        </h3>
+    </div>
+    <%}%>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>
+                    Пошта<input type="email" value="<%-user.email%>" name="email" disabled="disabled" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Старий пароль <input type="password" name="old_password" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Новий пароль <input type="password" name="password" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Повторіть пароль <input type="password" name="re_password" class="form-control" />
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>
+                    Ім'я <input type="text" value="<%-user.name%>" name="name" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Стать <select name="sex" class="form-control">
+                    <option value="0">Не знаю</option>
+                    <option value="1" <%if(user.sex==1){%>selected="selected"<%}%>>Ч</option>
+                    <option value="2" <%if(user.sex==2){%>selected="selected"<%}%>>Ж</option>
+                </select>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Дата народження <input type="date" value="<%-user.dob ? user.dob.toISOString().substr(0,10) : ''%>" name="dob" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Місто <input type="text" value="<%-user.city%>" name="city" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Адреса <input type="text" value="<%-user.addr%>" name="addr" class="form-control" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Номер телефону <input type="text" value="<%-user.tel%>" name="tel" class="form-control" />
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+    <button type="submit" class="btn btn-success">Редагувати</button>
+    <button type="reset" class="btn btn-danger">Відмінити</button>
+</div>
+</form>

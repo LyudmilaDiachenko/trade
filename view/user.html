@@ -1,0 +1,14 @@
+<h2 class="text-center"><%-user.name%><br>
+    <!--<%-user.dob.toISOString().substr(0,10)%>-->
+</h2>
+<address>
+    <strong>Адреса:</strong><br>
+    <%-user.addr%><br>
+    <%-user.city%><br>
+    <abbr title="Phone">P:</abbr> <%-user.tel%>
+</address>
+
+<address>
+    <strong>Електронна пошта</strong><br>
+    <a href="mailto:#"><%-user.email%></a>
+</address>
