@@ -75,14 +75,13 @@ module.exports = {
             }
             try {
                 if (this.request.body.adv_id){
-                    yield sql.query('UPDATE trade.adv SET name=?, text=?, price=?, category_id=? WHERE adv_id=? and user_id=?', [this.request.body.name, this.request.body.text, this.request.body.price, this.request.body.category_id, this.request.body.adv_id, this.session.user_id]);
+                    yield sql.query('UPDATE trade.adv SET name=?, text=?, price=?, category_id=?, currency_id=? WHERE adv_id=? and user_id=?', [this.request.body.name, this.request.body.text, this.request.body.price, this.request.body.category_id, this.request.body.currency_id, this.request.body.adv_id, this.session.user_id]);
                 } else {
-                    var res = yield sql.query('INSERT INTO `trade`.`adv` (`user_id`,`name`,`text`,`price`, `category_id`) VALUES (?, ?, ?, ?, ?)', [this.session.user_id, this.request.body.name, this.request.body.text, this.request.body.price, this.request.body.category_id]);
+                    var res = yield sql.query('INSERT INTO `trade`.`adv` (`user_id`,`name`,`text`,`price`, `category_id`, `currency_id`) VALUES (?, ?, ?, ?, ?, ?)', [this.session.user_id, this.request.body.name, this.request.body.text, this.request.body.price, this.request.body.category_id, this.request.body.currency_id]);
                 }
             } catch (error) {
-                console.log(error);
+
             }
-            console.log();
             return this.redirect('/adv/'+(this.request.body.adv_id || res.insertId)+'/');
         } else {
             var item = {};
@@ -91,33 +90,39 @@ module.exports = {
             }
                if(!item) return this.redirect('/publish/');
             var list = yield sql.query('SELECT * FROM trade.category');
+            var currencies = yield sql.query('SELECT * FROM trade.currency');
             yield this.render('publish', {
                 session: this.session,
                 page: 'publish',
                 item: item,
-                list: list
+                list: list,
+                currencies: currencies
 
             });
         }
     },
     search: function *(next) {
-        var query = `SELECT a.*, c.*, u.email
+        var query = `SELECT a.*, u.email, c.*, y.*
         FROM trade.adv a
         INNER JOIN trade.users u using (user_id)
-        INNER JOIN trade.category c using (category_id)
+        LEFT JOIN trade.category c using (category_id)
+        INNER JOIN trade.currency y using (currency_id)
+        INNER JOIN trade.currency y2 on y2.currency_id = ?
         WHERE 1 `
             + (this.query.text ? ` and (a.name LIKE "%${this.query.text}%" OR text LIKE "%${this.query.text}%") ` : '')
-            + (this.query.price_from ? ` and price >= "${this.query.price_from}" ` : '')
-            + (this.query.price_to ? ` and price <= "${this.query.price_to}" ` : '')
-            + ((this.query.category_id|0) ? ` and (category_id LIKE "%${this.query.category_id}%") ` : '')
+            + (this.query.price_from ? ` and ceil(price * y.rate / y2.rate) >= "${this.query.price_from}" ` : '')
+            + (this.query.price_to ? ` and ceil(price * y.rate / y2.rate) <= "${this.query.price_to}" ` : '')
+            + ((this.query.category_id|0) ? ` and category_id='${this.query.category_id}' ` : '')
             + ` ORDER BY a.name desc`;
-        var items = yield sql.query(query);
+        var items = yield sql.query(query,[this.query.currency_id|0]);
         var list = yield sql.query('SELECT * FROM trade.category');
+        var currencies = yield sql.query('SELECT * FROM trade.currency');
         yield this.render('search', {
             session: this.session,
             page: 'search',
             items: items,
             list: list,
+            currencies: currencies,
             query: this.query
         });
         yield next;
@@ -127,6 +132,7 @@ module.exports = {
         FROM trade.adv a
         INNER JOIN trade.users u using (user_id)
         INNER JOIN trade.category c using (category_id)
+        INNER JOIN trade.currency y using (currency_id)
         WHERE adv_id = ?`,[this.params.id]);
         if (!items[0]) {
             return this.redirect('/');

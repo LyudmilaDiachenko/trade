@@ -10,12 +10,16 @@
             </h3>
         </div>
         <div class="panel-body">
-           <strong>Ціна: </strong>
-            <%-item.price%>
-        </div>
-        <div class="panel-body">
             <strong>Категорія: </strong>
             <%-item.category_name%>
+        </div>
+        <div class="panel-body">
+           <strong>Ціна: </strong>
+            <%if (item.position==0){%>
+            <%-item.sign%> <%-item.price%>
+            <%} else {%>
+            <%-item.price%> <%-item.sign%>
+            <%}%>
         </div>
         <div class="panel-body">
             <strong>Дата оголошення: </strong>

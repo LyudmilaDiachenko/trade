@@ -20,13 +20,24 @@
             <%}%>
         </select>
     </div>
-    <div class="form-group">
+    <div class="row">
+    <div class="col-xs-2">
         <label for="price">Ціна</label>
-        <div class="input-group">
-            <input type="number" name="price" id="price" min="0" step="10" value="<%-item.price%>" class="form-control" />
-            <div class="input-group-addon">грн.</div>
+        <input type="number" name="price" id="price" min="0" step="10" value="<%-item.price%>" class="form-control" />
+    </div>
+        <div class="col-xs-2">
+            <label for="currency_id">Валюта</label>
+            <select id="currency_id" name="currency_id" class="form-control">
+                <%for(var k in currencies){%>
+                <option value="<%-currencies[k].currency_id%>">
+                    <%-currencies[k].sign%>
+                </option>
+                <%}%>
+            </select>
         </div>
     </div>
-    <button type="submit" class="btn btn-success">Зберегти</button>
-    <button type="reset" class="btn btn-danger">Відмінити</button>
+    <div class="text-center">
+        <button type="submit" class="btn btn-success">Зберегти</button>
+        <button type="reset" class="btn btn-danger">Відмінити</button>
+    </div>
 </form>
