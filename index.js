@@ -56,6 +56,9 @@ router
 
     .get('/adv/:id/', trade.adv)
 
+//відгуки на кінцевій
+//блокнот(дод у вибране)
+//друзі
 ;
 app.use(router.routes());
 

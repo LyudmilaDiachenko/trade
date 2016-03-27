@@ -106,8 +106,8 @@ module.exports = {
         FROM trade.adv a
         INNER JOIN trade.users u using (user_id)
         LEFT JOIN trade.category c using (category_id)
-        INNER JOIN trade.currency y using (currency_id)
-        INNER JOIN trade.currency y2 on y2.currency_id = ?
+        LEFT JOIN trade.currency y using (currency_id)
+        LEFT JOIN trade.currency y2 on y2.currency_id = ?
         WHERE 1 `
             + (this.query.text ? ` and (a.name LIKE "%${this.query.text}%" OR text LIKE "%${this.query.text}%") ` : '')
             + (this.query.price_from ? ` and ceil(price * y.rate / y2.rate) >= "${this.query.price_from}" ` : '')
