@@ -26,6 +26,7 @@ module.exports = {
             var user = yield sql.query('SELECT * FROM trade.users where email=? and password=?', [this.request.body.email, md5(this.request.body.password).toString()]);
             this.session.user_id = user[0] ? user[0].user_id : null;
             this.session.email = user[0] ? user[0].email : null;
+            this.session.name = user[0] ? user[0].name : null;
             this.redirect('/');
         } else {
             yield this.render('login', {
@@ -137,10 +138,13 @@ module.exports = {
         if (!items[0]) {
             return this.redirect('/');
         }
+        var reviews = yield sql.query(`SELECT * FROM trade.review where adv_id=? order by date desc limit 100`,[this.params.id]);
+
         yield this.render('adv', {
             session: this.session,
             page: 'adv',
             item: items[0],
+            reviews: reviews,
             id: this.params.id
         });
         yield next;
@@ -156,7 +160,11 @@ module.exports = {
         });
         yield next;
 
+    },
+
+    review: function *(next){
+        var res = yield sql.query('INSERT INTO `trade`.`review` (`adv_id`, `user_id`, `name`, `text`) VALUES (?, ?, ?, ?)', [this.request.body.adv_id, this.session.user_id, this.request.body.name, this.request.body.text]);
+        return this.redirect('/adv/'+this.request.body.adv_id +'/#review-' + res.insertId);
     }
 };
 
-//INSERT INTO `trade`.`adv` (`adv_id`, `user_id`, `name`, `text`, `price`) VALUES ('1', '1', 'Придбаю холодильник', 'Придбаю холодильник. Торг.', '2000');

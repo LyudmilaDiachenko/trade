@@ -56,6 +56,8 @@ router
 
     .get('/adv/:id/', trade.adv)
 
+    .post('/review/', trade.review)
+
 //відгуки на кінцевій
 //блокнот(дод у вибране)
 //друзі

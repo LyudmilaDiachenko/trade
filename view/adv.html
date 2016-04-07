@@ -40,3 +40,28 @@
   </div>
     </div>
 </div>
+
+<h2>Відгуки</h2>
+<form method="POST" action="/review/">
+    <input type="hidden" name="adv_id" value="<%-item.adv_id%>" />
+    <div class="form-group">
+    <input type="text" name="name" value="<%-session.name%>" placeholder="Ім'я" />
+    </div>
+    <div class="form-group">
+    <textarea name="text" placeholder="Текс відгуку"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Залишити відгук</button>
+</form>
+
+<%for(var k in reviews){%>
+<blockquote>
+    <p><%-reviews[k].text%>
+    </p>
+    <footer>
+        <%-reviews[k].name%>
+        <cite>
+        <%-reviews[k].date.toISOString().substr(0,10)%>
+        </cite>
+    </footer>
+</blockquote>
+<%}%>
